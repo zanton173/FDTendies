@@ -1,0 +1,14 @@
+.centering{
+	text-align: center;
+}
+table, tr{
+	text-align: center;
+	width: 75%;
+	margin: auto;
+	border: 1px solid black;
+	padding: 5px;
+}
+th, td{
+	text-align: center;
+	border: 1px solid black;
+}
