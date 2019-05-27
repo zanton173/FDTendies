@@ -230,13 +230,19 @@ th, td{
 	text-align: center;
 	border: 2px dashed green;
 }
+.buttonClass{
+	width: 100%;
+	height: 70px;
+	color: black;
+	background-color: #29f133;
+}
 .classForABCD{
 	text-align: center;
 	border: 4px solid green;
 	width: 15%;
 }
 .classForBlankSpots{
-	width: 75px;
+	width: 15%;
 	border: 0px;
 }
 caption {
@@ -279,6 +285,7 @@ textarea {
 button,
 input {
   overflow: visible;
+  
 }
 
 button,
