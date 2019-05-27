@@ -230,11 +230,18 @@ th, td{
 	text-align: center;
 	border: 2px dashed green;
 }
+.bodyBackground{
+	background-color: #d3fcd9;
+}
 .buttonClass{
 	width: 100%;
 	height: 70px;
 	color: black;
 	background-color: #29f133;
+}
+.buttonClass:hover{
+	background-color: orange;
+	border: ridge 5px;
 }
 .classForABCD{
 	text-align: center;
