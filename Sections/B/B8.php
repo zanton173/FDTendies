@@ -1,3 +1,4 @@
+<?php include 'Queries.php';?>
 <html>
 <body class="bodyBackground">
 <head>
@@ -7,8 +8,8 @@
 	Application</h1>
 
 <div style="height: 550px;">
+	
 	<ol>
-	<li>item 1</li>
 	<li>item 2</li>
 	<li>item 3</li>
 	<li>item 4</li>
@@ -16,7 +17,7 @@
 </div>
 <div class="centering">
 	<button style="height: 50px;"
-		onclick="window.location.href = '../../HelloWorld.html';">Home
+		onclick="window.location.href = '../../Home.html';">Home
 		Screen</button>
 </div>
 </body>

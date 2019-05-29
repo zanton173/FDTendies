@@ -17,7 +17,7 @@
 </div>
 <div class="centering">
 	<button style="height: 50px;"
-		onclick="window.location.href = '../../HelloWorld.html';">Home
+		onclick="window.location.href = '../../Home.html';">Home
 		Screen</button>
 </div>
 </body>

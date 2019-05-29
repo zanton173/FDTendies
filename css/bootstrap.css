@@ -252,6 +252,20 @@ th, td{
 	width: 15%;
 	border: 0px;
 }
+.tabs{
+   margin: center;
+   width: 100%;
+   text-align: center;
+   
+  
+}
+form{
+    display: inline;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
