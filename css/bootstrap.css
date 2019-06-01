@@ -256,16 +256,29 @@ th, td{
    margin: center;
    width: 100%;
    text-align: center;
-   
   
+  
+}
+.input{
+	background-color: #ffffdd;
+	height: 75px;
+}
+.input:hover{
+	color: #acb4fb;
+	border-style: ridge;
+	border-width: 2px;
+}
+h1{
+	height: 85px;
 }
 form{
     display: inline;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    
+   
 }
+
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
