@@ -223,8 +223,12 @@ table, tr{
 	text-align: center;
 	width: 85%;
 	margin: auto;
+	margin-top: 0;
 	border: 5px ridge green;
 	
+}
+.tableForShelves{
+	width: 50%;
 }
 th, td{
 	text-align: center;
@@ -268,12 +272,16 @@ th, td{
 	border-style: ridge;
 	border-width: 2px;
 }
+
 h1{
 	height: 85px;
 }
 h4{
-
+	
 	color: #f40000;
+}
+h5{
+	
 }
 form{
     display: inline;

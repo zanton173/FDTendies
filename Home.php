@@ -1,28 +1,8 @@
 <?php
-
 include 'NewFile.php';
 
- $hostname = "192.168.1.179";
- $dbusername = "testHine";
- $dbpass = "HineInventory";
- $dbname = "hine";
-
-/* $hostname = "localhost";
-$dbusername = "root";
-$dbpass = "";
-$dbname = "hine"; */
-
-
-$connect = mysqli_connect($hostname, $dbusername, $dbpass, $dbname);
-
-if (!$connect) {
-    die("connection failed");
-} else {}
-
 if (isset($_POST['truncate'])) {
-
-    $query = "TRUNCATE TABLE parts";
-    mysqli_query($connect, $query);
+    NewFile::dropTable();
 }
 
 ?>
@@ -33,8 +13,8 @@ if (isset($_POST['truncate'])) {
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
-<h1 class="centering" style="font-size: 15pt;">Hine
-	Inventory Application</h1>
+<h1 class="centering" style="font-size: 15pt;">Hine Inventory
+	Application</h1>
 <div class="tabs">
 	<form action="2510.html">
 		<input class="input" type="submit" value="2510 Warehouse" id='2510' />
@@ -45,7 +25,8 @@ if (isset($_POST['truncate'])) {
 	</form>
 	<form action="Home.php" method="post">
 		<input class="input" type="submit" name="truncate"
-			value="Clean and clear parts table" />
+			value="Remove all dead parts" />
+			
 	</form>
 </div>
 <div style="height: 550px;"></div>
