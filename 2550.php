@@ -1,4 +1,10 @@
+<?php 
+include 'NewFile.php';
+class Building2550{
+    public $searchBarData;
+}
 
+?>
 <html>
 <body class="bodyBackground">
 <head>
@@ -7,7 +13,25 @@
 <h1 class="centering" style="font-size: 15pt; height: 25px;">Hine Inventory
 	Application</h1>
 	<h2 style="font-size: 10pt">Warehouse 2550</h2>
-
+	<form method='post'>
+		<input name='searchbar' style='margin-left: 60%;' type='text' placeholder="Search For Part" >
+		<input type='submit' name='search' >
+		<br>
+		
+	</form>
+	<div style='text-align: center;'><?php 
+	$thisPage = new Building2550();
+	if(isset($_POST['search'])){
+		$thisPage->searchBarData = $_POST['searchbar'];
+	    $query = "SELECT * FROM parts WHERE partNumber='$thisPage->searchBarData'";
+	    $result = mysqli_query(NewFile::establishConnection(), $query);
+	    if(mysqli_num_rows($result) > 0){
+	        while($row = mysqli_fetch_array($result)){
+	            echo $row['partNumber'] . '&nbsp;' . $row['linesUsed'] . '&nbsp;' . $row['qty'] . '&nbsp;' . $row['location'];
+	        }
+	    }
+	    
+		}?></div>
 <div>
 	<table>
 		<tr>

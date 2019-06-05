@@ -20,7 +20,7 @@ if (isset($_POST['truncate'])) {
 		<input class="input" type="submit" value="2510 Warehouse" id='2510' />
 	</form>
 
-	<form action="2550.html">
+	<form action="2550.php">
 		<input class="input" type="submit" value="2550 Warehouse" id='2550' />
 	</form>
 	<form action="Home.php" method="post">
