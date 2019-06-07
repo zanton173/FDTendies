@@ -4,6 +4,9 @@ include 'NewFile.php';
 if (isset($_POST['truncate'])) {
     NewFile::dropTable();
 }
+if(isset($_POST['deleteLogs'])){
+    NewFile::dropRecevingLogs();
+}
 
 ?>
 <html>
@@ -22,14 +25,23 @@ if (isset($_POST['truncate'])) {
 
 	<form action="2550.php">
 		<input class="input" type="submit" value="2550 Warehouse" id='2550' />
+	</form><br><br>
+	<form action="ReceivingLog.php">
+		<input class="input" type="submit" name='' value='Incoming Inspection Log' />
 	</form>
+	
 	<form action="Home.php" method="post">
 		<input class="input" type="submit" name="truncate"
 			value="Remove all dead parts" />
 			
+	</form><br><br>
+	<form action="Home.php" method="post">
+		<input class="input" type="submit" name="deleteLogs"
+			value="Remove Bad Logs" />
+			
 	</form>
 </div>
-<div style="height: 550px;"></div>
+<div style="height: 300px;"></div>
 <div class="centering">
 	<button style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>

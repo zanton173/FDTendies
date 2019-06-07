@@ -69,7 +69,7 @@ $shelfNumber = "Shelf4";
 echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
 
 
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf4'";
+$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf4' ORDER BY qty DESC";
 $result = mysqli_query(NewFile::establishConnection(), $query);
 if ($shelfNumber == "Shelf4") {
   
@@ -98,7 +98,7 @@ if ($shelfNumber == "Shelf4") {
 $shelfNumber = "Shelf3";
 echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
 
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf3'";
+$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf3' ORDER BY qty DESC";
 $result = mysqli_query(NewFile::establishConnection(), $query);
 if ($shelfNumber == "Shelf3") {
     
@@ -124,7 +124,7 @@ if ($shelfNumber == "Shelf3") {
 	<?php
 $shelfNumber = "Shelf2";
 echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf2'";
+$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf2' ORDER BY qty DESC";
 $result = mysqli_query(NewFile::establishConnection(), $query);
 if ($shelfNumber == "Shelf2") {
     if(mysqli_num_rows($result) > 0){
@@ -150,7 +150,7 @@ if ($shelfNumber == "Shelf2") {
 $shelfNumber = "Shelf1";
 echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
 
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf1'";
+$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='B8Shelf1' ORDER BY qty DESC";
 $result = mysqli_query(NewFile::establishConnection(), $query);
 if ($shelfNumber == "Shelf1") {
     if(mysqli_num_rows($result) > 0){

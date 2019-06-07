@@ -13,7 +13,7 @@ class NewFile
          $dbname = "hine";
         //$hostname = "localhost";
        // $dbusername = "root";
-        //$dbpass = "";
+       // $dbpass = "";
        // $dbname = "hine";
 
         $connect = mysqli_connect($hostname, $dbusername, $dbpass, $dbname);
@@ -21,11 +21,21 @@ class NewFile
         return $connect;
     }
 
-    
     public static function dropTable()
     {
-        $query = "DELETE FROM parts WHERE partNumber='' OR linesUsed='' OR location='' OR partNumber='gay' OR linesUsed='gay'";
+        $query = "DELETE FROM parts WHERE partNumber='' OR linesUsed='' OR location=''";
         mysqli_query(NewFile::establishConnection(), $query);
+    }
+    public static function dropRecevingLogs(){
+        $query = "DELETE FROM inspectionlogs";
+        mysqli_query(NewFile::establishConnection(), $query);
+        
+    }
+    public static function createLogEntry($ref, $deliveryNum, $supplierName, $auditor)
+    {
+        $query = "INSERT INTO inspectionlogs(dateReceived, hineReference, supplierDelivery, supplierName, auditor) VALUES (CURRENT_DATE(), '$ref', '$deliveryNum', '$supplierName', '$auditor')";
+        mysqli_query(NewFile::establishConnection(), $query);
+        
         
     }
 }
