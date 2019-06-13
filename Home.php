@@ -19,7 +19,7 @@ if(isset($_POST['deleteLogs'])){
 <h1 class="centering" style="font-size: 15pt;">Hine Inventory
 	Application</h1>
 <div class="tabs">
-	<form action="2510.html">
+	<form action="2510.php">
 		<input class="input" type="submit" value="2510 Warehouse" id='2510' />
 	</form>
 

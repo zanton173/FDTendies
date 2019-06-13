@@ -1,32 +1,32 @@
 <?php
 require 'Queries.php';
 
-class B8
+class E5
 {
-
+    
     public $location;
-
+    
     public $setTablePosition = false;
-
+    
     public $qtyPicked;
-
+    
     public $qtyTakeSubmit;
 }
 
 $DoThings = new Queries();
-$thisPage = new B8();
+$thisPage = new E5();
 
 if (isset($_POST['submitPut'])) {
     $partNum = $_POST['partNum'];
     $partNum = preg_replace('(\s)', '', $partNum);
     $qty = $_POST['quantity'];
     $shelfNum = $_POST['shelfNum'];
-    $thisPage->location = "B8" . $shelfNum;
+    $thisPage->location = "E5" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
 } elseif (isset($_POST['submitPick'])) {
-
+    
     $shelfNum = $_POST['shelfNumSubtract'];
-    $thisPage->location = "B8" . $shelfNum;
+    $thisPage->location = "E5" . $shelfNum;
     $thisPage->setTablePosition = true;
 } elseif (isset($_POST['partNumberDropDown'])) {}
 
@@ -68,7 +68,7 @@ echo "<center>";
 function printTable($shelf, $j)
 {
     
-    $query = "SELECT partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('B8Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $query = "SELECT partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('E5Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
@@ -102,7 +102,7 @@ echo "</center>";
 ?> 
 	
 	
-	<!-- <form action='B8.php' method="post">  
+	<!-- <form action='E5.php' method="post">  
 
 	<!--<select style='margin: center' name="shelfNumSubtract"> 
 	<!--	<option style="width: 100px;" value='Shelf4'>Shelf 4 Top Shelf</option> 
@@ -123,7 +123,7 @@ echo "</center>";
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../Home.php';">Home Screen</button>
 	<button style="height: 50px;"
-		onclick="window.location.href = '../../2550.php';">2550 Layout</button>
+		onclick="window.location.href = '../../2510.php';">2510 Layout</button>
 </div>
 
 </body>

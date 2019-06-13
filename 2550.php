@@ -28,6 +28,7 @@ $thisPage = new Building2550();
 if (isset($_POST['searchbar'])) {
     if (isset($_POST['search'])) {
         $thisPage->searchBarData = $_POST['searchbar'];
+     //   $thisPage->searchBarData = preg_replace('(\s)', '', $thisPage->searchBarData);
         $query = "SELECT * FROM parts WHERE partNumber LIKE '%$thisPage->searchBarData%'";
         $result = mysqli_query(NewFile::establishConnection(), $query);
         if (mysqli_num_rows($result) > 0) {
