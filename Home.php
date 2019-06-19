@@ -29,12 +29,14 @@ if(isset($_POST['deleteLogs'])){
 	<form action="ReceivingLog.php">
 		<input class="input" type="submit" name='' value='Incoming Inspection Log' />
 	</form>
-	
+	<form action="2600.php">
+		<input class="input" type="submit" value='2600 Warehouse' />
+	</form><br><br>
 	<form action="Home.php" method="post">
 		<input class="input" type="submit" name="truncate"
 			value="Remove all dead parts" />
 			
-	</form><br><br>
+	</form>
 	<form action="Home.php" method="post">
 		<input class="input" type="submit" name="deleteLogs"
 			value="Remove Bad Logs" />

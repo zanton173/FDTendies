@@ -4,7 +4,7 @@ require 'Queries.php';
 class A5
 {
     
-    public $location;
+    public $location; 
     
     public $setTablePosition = false;
     

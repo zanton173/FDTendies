@@ -1,5 +1,5 @@
 <?php
-include '../../NewFile.php';
+include 'NewFile.php';
 
 class Queries
 {

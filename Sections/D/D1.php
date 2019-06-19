@@ -8,7 +8,7 @@ class D1
     
     public $setTablePosition = false;
     
-    public $qtyPicked;
+    public $qtyRowId;
     
     public $qtyTakeSubmit;
 }
@@ -18,17 +18,22 @@ $thisPage = new D1();
 
 if (isset($_POST['submitPut'])) {
     $partNum = $_POST['partNum'];
-    $linesUsed = $_POST['lines'];
+    $partNum = preg_replace('(\s)', '', $partNum);
     $qty = $_POST['quantity'];
     $shelfNum = $_POST['shelfNum'];
     $thisPage->location = "D1" . $shelfNum;
-    $DoThings->putawayPart($partNum, $linesUsed, $thisPage->location, $qty);
-} elseif (isset($_POST['submitPick'])) {
+    $DoThings->putawayPart($partNum, $thisPage->location, $qty);
+}
+if (isset($_POST['pickSubmit'])) {
+    $qtyPick = $_POST['qtyMan'];
     
-    $shelfNum = $_POST['shelfNumSubtract'];
-    $thisPage->location = "D1" . $shelfNum;
-    $thisPage->setTablePosition = true;
-} elseif (isset($_POST['partNumberDropDown'])) {}
+    $query = "UPDATE parts SET qty=qty-$qtyPick";
+    //echo $thisPage->qtyRowId;
+    //echo $qtyPick;
+    //print_r($thisPage->qtyRowId);
+    mysqli_query(NewFile::establishConnection(), $query);
+}
+
 
 ?>
 <html>
@@ -41,12 +46,11 @@ if (isset($_POST['submitPut'])) {
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
 	Inventory Application</h1>
 
-<div style="height: 15px;">
+<div style="height: 15px; text-align: center;">
 	<h4>Putaway Item</h4>
 	<form method="post">
 
 		<input type='text' name='partNum' placeholder='Part Number'> <input
-			type='text' name='lines' placeholder='Lines Used In'> <input
 			type='text' name='quantity' placeholder='Quantity'> <select
 			name="shelfNum">
 			<option style="width: 100px;" value='Shelf4'>Shelf 4 Top Shelf</option>
@@ -64,114 +68,50 @@ if (isset($_POST['submitPut'])) {
 	<h4>Items on Shelves</h4>
 	
 	<?php
-	echo "<center>";
-$shelfNumber = "Shelf4";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
+echo "<center>";
 
+function printTable($shelf, $j)
+{
+    $thisPage = new D1();
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D1Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $result = mysqli_query(NewFile::establishConnection(), $query);
+    if ($shelf == "Shelf" . $j) {
 
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D1Shelf4'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf4") {
-  
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-       
-        while ($row = mysqli_fetch_array($result)) {
+        if (mysqli_num_rows($result) > 0) {
+            echo "<table class='tableForShelves'>";
+            echo "<tbody>";
             echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
+            echo "<th>Part Number</th>";
+            echo "<th>Quantity</th>";
+            echo "<th>Pick Quantity</th>";
             echo "</tr>";
-        }
-         
-        echo "</tbody>";
-        echo "</table>";
-    }
- 
-}
-?><?php
 
-$shelfNumber = "Shelf3";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
+            while ($row = mysqli_fetch_array($result)) {
+                
+                echo "<tr>";
+                echo "<td data-id='$row[partNumber]'>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>"; 
+                echo "<td><form method='post'>";
+                
+               // echo "<input type='number' name='qtyMan' ><input type='submit' name='pickSubmit' value='Pick'></form>"; 
+                echo "</td>";
+                echo "</tr>";
+                
+            }
 
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D1Shelf3'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf3") {
-    
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-        while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
-            echo "</tr>";
+            echo "</tbody>";
+            echo "</table>";
         }
-        echo "</tbody>";
-        echo "</table>";
     }
 }
+for ($i = 4; $i > 0; $i--) {
+    $shelfNumberPrint = "Shelf" . $i;
+    echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumberPrint</h5>";
 
-?>
-	<?php
-$shelfNumber = "Shelf2";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D1Shelf2'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf2") {
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-        while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
-    }
+    printTable($shelfNumberPrint, $i);
 }
+echo "</center>";
 
-?>
-	<?php
-$shelfNumber = "Shelf1";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
-
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D1Shelf1'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf1") {
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-        while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
-    }
-}
-echo "</center";
-?>
+?> 
 	
 	
 	<!-- <form action='D1.php' method="post">  

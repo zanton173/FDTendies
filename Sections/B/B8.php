@@ -8,7 +8,7 @@ class B8
 
     public $setTablePosition = false;
 
-    public $qtyPicked;
+    public $qtyRowId;
 
     public $qtyTakeSubmit;
 }
@@ -23,12 +23,17 @@ if (isset($_POST['submitPut'])) {
     $shelfNum = $_POST['shelfNum'];
     $thisPage->location = "B8" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
-} elseif (isset($_POST['submitPick'])) {
+}
+    if (isset($_POST['pickSubmit'])) {
+        $qtyPick = $_POST['qtyMan'];
+        
+        $query = "UPDATE parts SET qty=qty-$qtyPick";
+        //echo $thisPage->qtyRowId;
+        //echo $qtyPick;
+        //print_r($thisPage->qtyRowId);
+        mysqli_query(NewFile::establishConnection(), $query);
+    }
 
-    $shelfNum = $_POST['shelfNumSubtract'];
-    $thisPage->location = "B8" . $shelfNum;
-    $thisPage->setTablePosition = true;
-} elseif (isset($_POST['partNumberDropDown'])) {}
 
 ?>
 <html>
@@ -67,8 +72,8 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    
-    $query = "SELECT partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('B8Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $thisPage = new B8();
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('B8Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
@@ -78,12 +83,19 @@ function printTable($shelf, $j)
             echo "<tr>";
             echo "<th>Part Number</th>";
             echo "<th>Quantity</th>";
+            echo "<th>Pick Quantity</th>";
             echo "</tr>";
 
             while ($row = mysqli_fetch_array($result)) {
+                
                 echo "<tr>";
-                echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
+                echo "<td data-id='$row[partNumber]'>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>"; 
+                echo "<td><form method='post'>";
+                
+               // echo "<input type='number' name='qtyMan' ><input type='submit' name='pickSubmit' value='Pick'></form>"; 
+                echo "</td>";
                 echo "</tr>";
+                
             }
 
             echo "</tbody>";
