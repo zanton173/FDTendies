@@ -4,20 +4,24 @@ include '../../NewFile.php';
 class Queries
 {
     
-    function putawayPart($partNumber, $loc, $qty) 
+    function putawayPart($partNumber, $loc, $qty)
     {
         $query = "INSERT INTO parts(partNumber, location, qty) VALUES ('$partNumber', '$loc', '$qty')";
         
         return mysqli_query(NewFile::establishConnection(), $query);
     }
     
-    function pickItems($partNum, $qty)
+    function pickItems($partNum, $qty, $loc)
     {
-        $query = "UPDATE parts SET qty=qty - '$qty' WHERE partNumber='$partNum'";
+        $query = "UPDATE parts SET qty=qty - '$qty' WHERE partNumber='$partNum' AND location='$loc'";
         
         return mysqli_query(NewFile::establishConnection(), $query);
     }
-    
+    function moveParts($partNumFrom, $locFrom, $locTo){
+        $query = "UPDATE parts SET location='$locTo' WHERE location='$locFrom' AND partNumber='$partNumFrom'";
+        return mysqli_query(NewFile::establishConnection(), $query);
+    }
+   
     public static function pullData($field, $field2, $field3, $loc, $qtyTaken)
     {
         $query = "SELECT * FROM parts WHERE location='$loc'";
@@ -33,7 +37,7 @@ class Queries
             echo "<th>Lines Used</th>";
             echo "<th>Quantity</th>";
             echo "<th>Pick Quantity</th>";
-            //echo "<th>Submit Pick</th>";
+            // echo "<th>Submit Pick</th>";
             echo "</tr>";
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr>";
@@ -42,19 +46,20 @@ class Queries
                 echo "<td>" . $row[$field2] . "</td>";
                 echo "<td>" . $row[$field3] . "</td>";
                 echo "<td>" . "<input name='$qtyTaken' type='number' placeholder='Quantity Taken' />";
-                ?><form method='post'><button style='width: 150px; height: 25; font-size: 12pt;' name='<?php $_POST['picked']?>' type='button' >Submit Picks</button></form>
-                <?php echo "</tr>";
-                
+                ?><form method='post'>
+	<button style='width: 150px; height: 25; font-size: 12pt;'
+		name='<?php $_POST['picked']?>' type='button'>Submit Picks</button>
+</form>
+<?php
+
+                echo "</tr>";
             }
-            
+
             echo "</tbody>";
             echo "</table>";
-            
-        
-        
-        // mysqli_close(NewFile::establishConnection());
+
+            // mysqli_close(NewFile::establishConnection());
         }
-      
     }
 }
 ?>

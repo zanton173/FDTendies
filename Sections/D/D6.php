@@ -1,16 +1,16 @@
 <?php
-require 'Queries.php';
-
-class D6
-{
-    
-    public $location;
-    
-    public $setTablePosition = false;
-    
-    public $qtyPicked;
-    
-    public $qtyTakeSubmit;
+include 'Queries.php';
+/* include 'NewFile.php';
+ */class D6
+ {
+     
+     public $location;
+     
+     public $setTablePosition = false;
+     
+     public $qtyRowId;
+     
+     public $qtyTakeSubmit;
 }
 
 $DoThings = new Queries();
@@ -18,18 +18,26 @@ $thisPage = new D6();
 
 if (isset($_POST['submitPut'])) {
     $partNum = $_POST['partNum'];
-    $linesUsed = $_POST['lines'];
+    $partNum = preg_replace('(\s)', '', $partNum);
     $qty = $_POST['quantity'];
     $shelfNum = $_POST['shelfNum'];
     $thisPage->location = "D6" . $shelfNum;
-    $DoThings->putawayPart($partNum, $linesUsed, $thisPage->location, $qty);
-} elseif (isset($_POST['submitPick'])) {
-    
-    $shelfNum = $_POST['shelfNumSubtract'];
-    $thisPage->location = "D6" . $shelfNum;
-    $thisPage->setTablePosition = true;
-} elseif (isset($_POST['partNumberDropDown'])) {}
+    $DoThings->putawayPart($partNum, $thisPage->location, $qty);
+}
 
+if(isset($_POST['SubmitPicks'])){
+    $partNumPicked = $_POST['PartNumPick'];
+    $quantPicked = $_POST['QuantityPick'];
+    $locPicked = $_POST['LocationPick'];
+    $DoThings->pickItems($partNumPicked, $quantPicked, $locPicked);
+    
+}
+if(isset($_POST['SubmitMove'])){
+    $partNumFromMove = $_POST['PartNumFromMove'];
+    $locFromMove = $_POST['LocationFromMove'];
+    $locToMove = $_POST['LocationToMove'];
+    $DoThings->moveParts($partNumFromMove, $locFromMove, $locToMove);
+}
 ?>
 <html>
 <body class="bodyBackground">
@@ -39,14 +47,33 @@ if (isset($_POST['submitPut'])) {
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
-	Inventory Application</h1>
+	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>D6</h2>
+<div class='centering'>
+<h3>Pick Parts</h3>
+<form method='post'>
 
-<div style="height: 15px;">
+	<input type='text' name='PartNumPick' placeholder='Part Number'>&nbsp;
+	<input type='number' name='QuantityPick' placeholder='Quantity'>&nbsp;
+	<input type='text' name='LocationPick' placeholder='Location'>&nbsp;
+	<input type='submit' name='SubmitPicks'>
+
+</form>
+<h3>Move Parts</h3>
+<form method='post'>
+
+	<input type='text' name='PartNumFromMove' placeholder='Part Number to Move'>&nbsp;
+	<input type='text' name='LocationFromMove' placeholder='Moving From'>&nbsp;
+	Moving To
+	<input type='text' name='LocationToMove' placeholder='Moving to'>&nbsp;
+	<input type='submit' name='SubmitMove'>
+
+</form><br><br>
+</div>
+<div style="height: 15px; text-align: center;">
 	<h4>Putaway Item</h4>
 	<form method="post">
 
 		<input type='text' name='partNum' placeholder='Part Number'> <input
-			type='text' name='lines' placeholder='Lines Used In'> <input
 			type='text' name='quantity' placeholder='Quantity'> <select
 			name="shelfNum">
 			<option style="width: 100px;" value='Shelf4'>Shelf 4 Top Shelf</option>
@@ -64,138 +91,54 @@ if (isset($_POST['submitPut'])) {
 	<h4>Items on Shelves</h4>
 	
 	<?php
-	echo "<center>";
-$shelfNumber = "Shelf4";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
+echo "<center>";
 
+function printTable($shelf, $j)
+{
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D6Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $result = mysqli_query(NewFile::establishConnection(), $query);
+    if ($shelf == "Shelf" . $j) {
 
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D6Shelf4'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf4") {
-  
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-       
-        while ($row = mysqli_fetch_array($result)) {
+        if (mysqli_num_rows($result) > 0) {
+            echo "<table class='tableForShelves'>";
+            echo "<tbody>";
             echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
-            echo "</tr>";
-        }
-         
-        echo "</tbody>";
-        echo "</table>";
-    }
- 
-}
-?><?php
+            echo "<th>Part Number</th>";
+            echo "<th>Quantity</th>";
 
-$shelfNumber = "Shelf3";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
-
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D6Shelf3'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf3") {
-    
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-        while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
             echo "</tr>";
+
+            while ($row = mysqli_fetch_array($result)) {
+
+                echo "<tr>";
+                echo "<td data-id='$row[partNumber]'>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
+                echo "</tr>";
+            }
+
+            echo "</tbody>";
+            echo "</table>";
         }
-        echo "</tbody>";
-        echo "</table>";
     }
 }
+for ($i = 4; $i > 0; $i --) {
+    $shelfNumberPrint = "Shelf" . $i;
+    echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumberPrint</h5>";
 
-?>
-	<?php
-$shelfNumber = "Shelf2";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D6Shelf2'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf2") {
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-        while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
-    }
+    printTable($shelfNumberPrint, $i);
 }
-
-?>
-	<?php
-$shelfNumber = "Shelf1";
-echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumber</h5>";
-
-$query = "SELECT partNumber, linesUsed, qty FROM parts WHERE location='D6Shelf1'";
-$result = mysqli_query(NewFile::establishConnection(), $query);
-if ($shelfNumber == "Shelf1") {
-    if(mysqli_num_rows($result) > 0){
-        echo "<table class='tableForShelves'>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<th>Part Number</th>";
-        echo "<th>Lines Used</th>";
-        echo "<th>Quantity</th>";
-        echo "</tr>";
-        while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['linesUsed']. "</td>" .  "<td>" . $row['qty'] ."</td>" ;
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
-    }
-}
-echo "</center";
-?>
-	
-	
-	<!-- <form action='D6.php' method="post">  
-
-	<!--<select style='margin: center' name="shelfNumSubtract"> 
-	<!--	<option style="width: 100px;" value='Shelf4'>Shelf 4 Top Shelf</option> 
-	<!--	<option style="width: 100px;" value='Shelf3'>Shelf 3</option>
-	<!--	<option style="width: 100px;" value='Shelf2'>Shelf 2</option> 
-	<!--	<option style="width: 100px;" value='Shelf1'>Shelf 1 Bottom Shelf</option> 
-	<!--</select>
-	
-	
-	<input type='submit' name='submitPick' placeholder='submit'> 
-	<!--   <?php /* if($thisPage->setTablePosition){Queries::pullData('partNumber', 'linesUsed', 'qty', $thisPage->location, 'qtyPicked');} */?> 
-
-	<!--</form> -->
+echo "</center>";
+?> 
 
 </div>
-<div style="height: 25px;"></div>
+
+
+
 <div class="centering">
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../Home.php';">Home Screen</button>
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../2550.php';">2550 Layout</button>
+
 </div>
 
 </body>

@@ -1,16 +1,16 @@
 <?php
-require 'Queries.php';
-
-class D1
-{
-    
-    public $location;
-    
-    public $setTablePosition = false;
-    
-    public $qtyRowId;
-    
-    public $qtyTakeSubmit;
+include 'Queries.php';
+/* include 'NewFile.php';
+ */class D1
+ {
+     
+     public $location;
+     
+     public $setTablePosition = false;
+     
+     public $qtyRowId;
+     
+     public $qtyTakeSubmit;
 }
 
 $DoThings = new Queries();
@@ -24,17 +24,20 @@ if (isset($_POST['submitPut'])) {
     $thisPage->location = "D1" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
 }
-if (isset($_POST['pickSubmit'])) {
-    $qtyPick = $_POST['qtyMan'];
+
+if(isset($_POST['SubmitPicks'])){
+    $partNumPicked = $_POST['PartNumPick'];
+    $quantPicked = $_POST['QuantityPick'];
+    $locPicked = $_POST['LocationPick'];
+    $DoThings->pickItems($partNumPicked, $quantPicked, $locPicked);
     
-    $query = "UPDATE parts SET qty=qty-$qtyPick";
-    //echo $thisPage->qtyRowId;
-    //echo $qtyPick;
-    //print_r($thisPage->qtyRowId);
-    mysqli_query(NewFile::establishConnection(), $query);
 }
-
-
+if(isset($_POST['SubmitMove'])){
+    $partNumFromMove = $_POST['PartNumFromMove'];
+    $locFromMove = $_POST['LocationFromMove'];
+    $locToMove = $_POST['LocationToMove'];
+    $DoThings->moveParts($partNumFromMove, $locFromMove, $locToMove);
+}
 ?>
 <html>
 <body class="bodyBackground">
@@ -44,8 +47,28 @@ if (isset($_POST['pickSubmit'])) {
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
-	Inventory Application</h1>
+	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>D1</h2>
+<div class='centering'>
+<h3>Pick Parts</h3>
+<form method='post'>
 
+	<input type='text' name='PartNumPick' placeholder='Part Number'>&nbsp;
+	<input type='number' name='QuantityPick' placeholder='Quantity'>&nbsp;
+	<input type='text' name='LocationPick' placeholder='Location'>&nbsp;
+	<input type='submit' name='SubmitPicks'>
+
+</form>
+<h3>Move Parts</h3>
+<form method='post'>
+
+	<input type='text' name='PartNumFromMove' placeholder='Part Number to Move'>&nbsp;
+	<input type='text' name='LocationFromMove' placeholder='Moving From'>&nbsp;
+	Moving To
+	<input type='text' name='LocationToMove' placeholder='Moving to'>&nbsp;
+	<input type='submit' name='SubmitMove'>
+
+</form><br><br>
+</div>
 <div style="height: 15px; text-align: center;">
 	<h4>Putaway Item</h4>
 	<form method="post">
@@ -72,7 +95,6 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    $thisPage = new D1();
     $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D1Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
@@ -83,19 +105,14 @@ function printTable($shelf, $j)
             echo "<tr>";
             echo "<th>Part Number</th>";
             echo "<th>Quantity</th>";
-            echo "<th>Pick Quantity</th>";
+
             echo "</tr>";
 
             while ($row = mysqli_fetch_array($result)) {
-                
+
                 echo "<tr>";
-                echo "<td data-id='$row[partNumber]'>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>"; 
-                echo "<td><form method='post'>";
-                
-               // echo "<input type='number' name='qtyMan' ><input type='submit' name='pickSubmit' value='Pick'></form>"; 
-                echo "</td>";
+                echo "<td data-id='$row[partNumber]'>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
                 echo "</tr>";
-                
             }
 
             echo "</tbody>";
@@ -103,39 +120,25 @@ function printTable($shelf, $j)
         }
     }
 }
-for ($i = 4; $i > 0; $i--) {
+for ($i = 4; $i > 0; $i --) {
     $shelfNumberPrint = "Shelf" . $i;
     echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumberPrint</h5>";
 
     printTable($shelfNumberPrint, $i);
 }
 echo "</center>";
-
 ?> 
-	
-	
-	<!-- <form action='D1.php' method="post">  
-
-	<!--<select style='margin: center' name="shelfNumSubtract"> 
-	<!--	<option style="width: 100px;" value='Shelf4'>Shelf 4 Top Shelf</option> 
-	<!--	<option style="width: 100px;" value='Shelf3'>Shelf 3</option>
-	<!--	<option style="width: 100px;" value='Shelf2'>Shelf 2</option> 
-	<!--	<option style="width: 100px;" value='Shelf1'>Shelf 1 Bottom Shelf</option> 
-	<!--</select>
-	
-	
-	<input type='submit' name='submitPick' placeholder='submit'> 
-	<!--   <?php /* if($thisPage->setTablePosition){Queries::pullData('partNumber', 'linesUsed', 'qty', $thisPage->location, 'qtyPicked');} */?> 
-
-	<!--</form> -->
 
 </div>
-<div style="height: 25px;"></div>
+
+
+
 <div class="centering">
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../Home.php';">Home Screen</button>
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../2550.php';">2550 Layout</button>
+
 </div>
 
 </body>

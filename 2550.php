@@ -23,6 +23,7 @@ class Building2550
 		placeholder="Search For Part"> <input type='submit' name='search' /> <br>
 
 </form>
+
 <div style='text-align: center;'><?php
 $thisPage = new Building2550();
 if (isset($_POST['searchbar'])) {
