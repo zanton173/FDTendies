@@ -32,6 +32,9 @@ if(isset($_POST['deleteLogs'])){
 	<form action="2600.php">
 		<input class="input" type="submit" value='2600 Warehouse' />
 	</form><br><br>
+	<div class='centering'><form action="PickLists.php">
+		<input class="input" type="submit" value="Pick Lists">
+	</form><br><br></div>
 	<form action="Home.php" method="post">
 		<input class="input" type="submit" name="truncate"
 			value="Remove all dead parts" />

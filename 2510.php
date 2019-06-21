@@ -1,4 +1,12 @@
-
+<?php 
+    include 'NewFile.php';
+    
+    if (isset($_POST['submitTempDel'])){
+        $tempPartNum = $_POST['tempPartNum'];
+        $query = "DELETE FROM parts WHERE partNumber='$tempPartNum' AND location='2510'";
+        mysqli_query(NewFile::establishConnection(), $query);
+    }
+?>
 <html>
 <body class='bodyBackground'>
 <head>
@@ -74,7 +82,32 @@
 		</table>
 	
 	</div>
+<h4>Parts moved from 2600 for Temp Storage</h4>
+<div class='centering'>
+ <?php
 
+$query = "SELECT location, partNumber, SUM(qty) AS qty FROM parts WHERE location='2510'";
+$result = mysqli_query(NewFile::establishConnection(), $query);
+if (mysqli_num_rows($result)) {
+    echo "<table>";
+    echo "<tbody>";
+    echo "<tr>";
+    echo "<th>Part Number</th>";
+    echo "<th>Location</th>";
+    echo "<th>Quantity</th>";
+    echo "</tr>";
+    while ($row = mysqli_fetch_array($result)) {
+        echo "<tr><td>$row[partNumber]</td><td>$row[location]</td><td>$row[qty]</td></tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
+    echo "<br>";
+}
+echo "<div class='centering'><form method='post'>Delete Temp Parts: <input type='text' name='tempPartNum'><input type='submit' name='submitTempDel'></form></div>";
+echo "<br>";
+
+?> 
+</div>
 <div class="centering">
 	<button style="height: 50px;" onclick="window.location.href = 'Home.php';">Home Screen</button>
 </div>

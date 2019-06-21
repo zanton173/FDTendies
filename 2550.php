@@ -29,7 +29,7 @@ $thisPage = new Building2550();
 if (isset($_POST['searchbar'])) {
     if (isset($_POST['search'])) {
         $thisPage->searchBarData = $_POST['searchbar'];
-     //   $thisPage->searchBarData = preg_replace('(\s)', '', $thisPage->searchBarData);
+        // $thisPage->searchBarData = preg_replace('(\s)', '', $thisPage->searchBarData);
         $query = "SELECT * FROM parts WHERE partNumber LIKE '%$thisPage->searchBarData%'";
         $result = mysqli_query(NewFile::establishConnection(), $query);
         if (mysqli_num_rows($result) > 0) {
@@ -43,11 +43,17 @@ if (isset($_POST['searchbar'])) {
                 echo "<td>" . $row['partNumber'] . "</td>" . '&nbsp;' . "<td>" . $row['location'] . "</td>" . '&nbsp;' . "<td>" . $row['qty'] . "</td>";
                 echo "</tr>";
             }
-            
+
             echo "</tbody>";
             echo "</table>";
+            
         }
     }
+}
+if (isset($_POST['submitTempDel'])){
+    $tempPartNum = $_POST['tempPartNum'];
+    $query = "DELETE FROM parts WHERE partNumber='$tempPartNum' AND location='2550'";
+    mysqli_query(NewFile::establishConnection(), $query);
 }
 ?></div>
 <div>
@@ -160,6 +166,32 @@ if (isset($_POST['searchbar'])) {
 					onclick="window.location.href = 'Sections/D/D1.php'">Section 1</button></td>
 		</tr>
 	</table>
+</div>
+<h4>Parts moved from 2600 for Temp Storage</h4>
+<div class='centering'>
+ <?php
+
+$query = "SELECT location, partNumber, SUM(qty) AS qty FROM parts WHERE location='2550'";
+$result = mysqli_query(NewFile::establishConnection(), $query);
+if (mysqli_num_rows($result)) {
+    echo "<table>";
+    echo "<tbody>";
+    echo "<tr>";
+    echo "<th>Part Number</th>";
+    echo "<th>Location</th>";
+    echo "<th>Quantity</th>";
+    echo "</tr>";
+    while ($row = mysqli_fetch_array($result)) {
+        echo "<tr><td>$row[partNumber]</td><td>$row[location]</td><td>$row[qty]</td></tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
+    echo "<br>";
+    
+}
+echo "<div class='centering'><form method='post'>Delete Temp Parts: <input type='text' name='tempPartNum'><input type='submit' name='submitTempDel'></form></div>";
+echo "<br>";
+?> 
 </div>
 <div class="centering">
 	<button style="height: 50px;"
