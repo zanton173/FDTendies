@@ -1,27 +1,19 @@
 <?php
 include 'Queries.php';
-/* include 'NewFile.php';
- */class C6
- {
-     
-     public $location;
-     
-     public $setTablePosition = false;
-     
-     public $qtyRowId;
-     
-     public $qtyTakeSubmit;
+class C7
+{
+    
 }
 
 $DoThings = new Queries();
-$thisPage = new C6();
+$thisPage = new C7();
 
 if (isset($_POST['submitPut'])) {
     $partNum = $_POST['partNum'];
     $partNum = preg_replace('(\s)', '', $partNum);
     $qty = $_POST['quantity'];
     $shelfNum = $_POST['shelfNum'];
-    $thisPage->location = "C6" . $shelfNum;
+    $thisPage->location = "C7" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
 }
 
@@ -38,6 +30,18 @@ if(isset($_POST['SubmitMove'])){
     $locToMove = $_POST['LocationToMove'];
     $DoThings->moveParts($partNumFromMove, $locFromMove, $locToMove);
 }
+if(isset($_POST['SubmitDelete'])){
+    $partDel = $_POST['PartNumDelete'];
+    $locDel = $_POST['LocationDelete'];
+    
+    $DoThings->delParts($partDel, $locDel);
+}
+if(isset($_POST['SubmitChange'])){
+    $partNumOld = $_POST['PartNumToChange'];
+    $partNumNew = $_POST['NewPartNum'];
+    $located = $_POST['PartLocation'];
+    $DoThings->partNumChange($partNumOld, $partNumNew, $located);
+}
 ?>
 <html>
 <body class="bodyBackground">
@@ -47,9 +51,9 @@ if(isset($_POST['SubmitMove'])){
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
-	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>C6</h2>
+	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>C7</h2>
 <div class='centering'>
-<h3>Pick Parts</h3>
+<h4>Pick Parts</h4>
 <form method='post'>
 
 	<input type='text' name='PartNumPick' placeholder='Part Number'>&nbsp;
@@ -57,20 +61,37 @@ if(isset($_POST['SubmitMove'])){
 	<input type='text' name='LocationPick' placeholder='Location'>&nbsp;
 	<input type='submit' name='SubmitPicks'>
 
-</form>
-<h3>Move Parts</h3>
+</form><br><br>
+<h4>Move Parts</h4>
 <form method='post'>
 
 	<input type='text' name='PartNumFromMove' placeholder='Part Number to Move'>&nbsp;
 	<input type='text' name='LocationFromMove' placeholder='Moving From'>&nbsp;
-	Moving To
+	
 	<input type='text' name='LocationToMove' placeholder='Moving to'>&nbsp;
 	<input type='submit' name='SubmitMove'>
 
 </form><br><br>
+<h4>Delete Parts</h4>
+<form method='post'>
+
+	<input type='text' name='PartNumDelete' placeholder='Part Number'>&nbsp;
+		<input type='text' name='LocationDelete' placeholder='Location'>&nbsp;
+	<input type='submit' name='SubmitDelete'>
+
+</form><br><br>
+<h4>Change Part Number</h4>
+<form method='post'>
+
+	<input type='text' name='PartNumToChange' placeholder='Old Part Number'>&nbsp;
+	<input type='text' name='NewPartNum' placeholder='New Part Number'>&nbsp;
+	<input type='text' name='PartLocation' placeholder='Location'>&nbsp;
+	<input type='submit' name='SubmitChange'>
+
+</form><br><br>
 </div>
 <div style="height: 15px; text-align: center;">
-	<h4>Putaway Item</h4>
+	<h4>Putaway Parts</h4>
 	<form method="post">
 
 		<input type='text' name='partNum' placeholder='Part Number'> <input
@@ -95,7 +116,7 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('C6Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('C7Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
@@ -130,8 +151,6 @@ echo "</center>";
 ?> 
 
 </div>
-
-
 
 <div class="centering">
 	<button style="height: 50px;"

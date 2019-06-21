@@ -1,16 +1,8 @@
 <?php
-require 'Queries.php';
-
+include 'Queries.php';
 class E5
 {
     
-    public $location;
-    
-    public $setTablePosition = false;
-    
-    public $qtyPicked;
-    
-    public $qtyTakeSubmit;
 }
 
 $DoThings = new Queries();
@@ -23,26 +15,83 @@ if (isset($_POST['submitPut'])) {
     $shelfNum = $_POST['shelfNum'];
     $thisPage->location = "E5" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
-} elseif (isset($_POST['submitPick'])) {
-    
-    $shelfNum = $_POST['shelfNumSubtract'];
-    $thisPage->location = "E5" . $shelfNum;
-    $thisPage->setTablePosition = true;
-} elseif (isset($_POST['partNumberDropDown'])) {}
+}
 
+if(isset($_POST['SubmitPicks'])){
+    $partNumPicked = $_POST['PartNumPick'];
+    $quantPicked = $_POST['QuantityPick'];
+    $locPicked = $_POST['LocationPick'];
+    $DoThings->pickItems($partNumPicked, $quantPicked, $locPicked);
+    
+}
+if(isset($_POST['SubmitMove'])){
+    $partNumFromMove = $_POST['PartNumFromMove'];
+    $locFromMove = $_POST['LocationFromMove'];
+    $locToMove = $_POST['LocationToMove'];
+    $DoThings->moveParts($partNumFromMove, $locFromMove, $locToMove);
+}
+if(isset($_POST['SubmitDelete'])){
+    $partDel = $_POST['PartNumDelete'];
+    $locDel = $_POST['LocationDelete'];
+    
+    $DoThings->delParts($partDel, $locDel);
+}
+if(isset($_POST['SubmitChange'])){
+    $partNumOld = $_POST['PartNumToChange'];
+    $partNumNew = $_POST['NewPartNum'];
+    $located = $_POST['PartLocation'];
+    $DoThings->partNumChange($partNumOld, $partNumNew, $located);
+}
 ?>
 <html>
-<body class="bodyBackground">
+<body style='background-color: teal;'>
 
 
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
-	Inventory Application</h1>
+	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>E5</h2>
+<div class='centering'>
+<h4>Pick Parts</h4>
+<form method='post'>
 
+	<input type='text' name='PartNumPick' placeholder='Part Number'>&nbsp;
+	<input type='number' name='QuantityPick' placeholder='Quantity'>&nbsp;
+	<input type='text' name='LocationPick' placeholder='Location'>&nbsp;
+	<input type='submit' name='SubmitPicks'>
+
+</form><br><br>
+<h4>Move Parts</h4>
+<form method='post'>
+
+	<input type='text' name='PartNumFromMove' placeholder='Part Number to Move'>&nbsp;
+	<input type='text' name='LocationFromMove' placeholder='Moving From'>&nbsp;
+	
+	<input type='text' name='LocationToMove' placeholder='Moving to'>&nbsp;
+	<input type='submit' name='SubmitMove'>
+
+</form><br><br>
+<h4>Delete Parts</h4>
+<form method='post'>
+
+	<input type='text' name='PartNumDelete' placeholder='Part Number'>&nbsp;
+		<input type='text' name='LocationDelete' placeholder='Location'>&nbsp;
+	<input type='submit' name='SubmitDelete'>
+
+</form><br><br>
+<h4>Change Part Number</h4>
+<form method='post'>
+
+	<input type='text' name='PartNumToChange' placeholder='Old Part Number'>&nbsp;
+	<input type='text' name='NewPartNum' placeholder='New Part Number'>&nbsp;
+	<input type='text' name='PartLocation' placeholder='Location'>&nbsp;
+	<input type='submit' name='SubmitChange'>
+
+</form><br><br>
+</div>
 <div style="height: 15px; text-align: center;">
-	<h4>Putaway Item</h4>
+	<h4>Putaway Parts</h4>
 	<form method="post">
 
 		<input type='text' name='partNum' placeholder='Part Number'> <input
@@ -67,8 +116,7 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    
-    $query = "SELECT partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('E5Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('E5Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
@@ -78,11 +126,13 @@ function printTable($shelf, $j)
             echo "<tr>";
             echo "<th>Part Number</th>";
             echo "<th>Quantity</th>";
+
             echo "</tr>";
 
             while ($row = mysqli_fetch_array($result)) {
+
                 echo "<tr>";
-                echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
+                echo "<td data-id='$row[partNumber]'>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
                 echo "</tr>";
             }
 
@@ -91,39 +141,23 @@ function printTable($shelf, $j)
         }
     }
 }
-for ($i = 4; $i > 0; $i--) {
+for ($i = 4; $i > 0; $i --) {
     $shelfNumberPrint = "Shelf" . $i;
     echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumberPrint</h5>";
 
     printTable($shelfNumberPrint, $i);
 }
 echo "</center>";
-
 ?> 
-	
-	
-	<!-- <form action='E5.php' method="post">  
-
-	<!--<select style='margin: center' name="shelfNumSubtract"> 
-	<!--	<option style="width: 100px;" value='Shelf4'>Shelf 4 Top Shelf</option> 
-	<!--	<option style="width: 100px;" value='Shelf3'>Shelf 3</option>
-	<!--	<option style="width: 100px;" value='Shelf2'>Shelf 2</option> 
-	<!--	<option style="width: 100px;" value='Shelf1'>Shelf 1 Bottom Shelf</option> 
-	<!--</select>
-	
-	
-	<input type='submit' name='submitPick' placeholder='submit'> 
-	<!--   <?php /* if($thisPage->setTablePosition){Queries::pullData('partNumber', 'linesUsed', 'qty', $thisPage->location, 'qtyPicked');} */?> 
-
-	<!--</form> -->
 
 </div>
-<div style="height: 25px;"></div>
+
 <div class="centering">
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../Home.php';">Home Screen</button>
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../2510.php';">2510 Layout</button>
+
 </div>
 
 </body>

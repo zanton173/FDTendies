@@ -1,19 +1,19 @@
 <?php
 include 'Queries.php';
-class A6
+class G2
 {
     
 }
 
 $DoThings = new Queries();
-$thisPage = new A6();
+$thisPage = new G2();
 
 if (isset($_POST['submitPut'])) {
     $partNum = $_POST['partNum'];
     $partNum = preg_replace('(\s)', '', $partNum);
     $qty = $_POST['quantity'];
     $shelfNum = $_POST['shelfNum'];
-    $thisPage->location = "A6" . $shelfNum;
+    $thisPage->location = "G2" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
 }
 
@@ -44,14 +44,14 @@ if(isset($_POST['SubmitChange'])){
 }
 ?>
 <html>
-<body class="bodyBackground">
+<body style='background-color: teal;'>
 
 
 <head>
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
-	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>A6</h2>
+	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>G2</h2>
 <div class='centering'>
 <h4>Pick Parts</h4>
 <form method='post'>
@@ -116,7 +116,7 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('A6Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('G2Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
@@ -156,7 +156,7 @@ echo "</center>";
 	<button style="height: 50px;"
 		onclick="window.location.href = '../../Home.php';">Home Screen</button>
 	<button style="height: 50px;"
-		onclick="window.location.href = '../../2550.php';">2550 Layout</button>
+		onclick="window.location.href = '../../2510.php';">2510 Layout</button>
 
 </div>
 

@@ -8,15 +8,15 @@ class NewFile
     public static function establishConnection()
     {
 
-        // $hostname = "192.168.1.179";
-        // $dbusername = "testHine";
-        // $dbpass = "HineInventory";
-        // $dbname = "hine";
-        $hostname = "localhost";
+         $hostname = "192.168.1.179";
+         $dbusername = "testHine";
+         $dbpass = "HineInventory";
+         $dbname = "hine";
+        //$hostname = "localhost";
         // USE THESE DATABASE VARIABLES TO LOGIN
-        $dbusername = "root";
-        $dbpass = "";
-        $dbname = "hine";
+        //$dbusername = "root";
+        //$dbpass = "";
+        //$dbname = "hine";
 
         $connect = mysqli_connect($hostname, $dbusername, $dbpass, $dbname);
 

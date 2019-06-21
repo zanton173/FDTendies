@@ -1,6 +1,6 @@
 
 <html>
-<body class="bodyBackground">
+<body class='bodyBackground'>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>

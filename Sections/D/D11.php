@@ -1,7 +1,7 @@
 <?php
 include 'Queries.php';
 /* include 'NewFile.php';
- */class D11
+ */class D111
  {
      
      public $location;
@@ -14,14 +14,14 @@ include 'Queries.php';
 }
 
 $DoThings = new Queries();
-$thisPage = new D11();
+$thisPage = new D111();
 
 if (isset($_POST['submitPut'])) {
     $partNum = $_POST['partNum'];
     $partNum = preg_replace('(\s)', '', $partNum);
     $qty = $_POST['quantity'];
     $shelfNum = $_POST['shelfNum'];
-    $thisPage->location = "D11" . $shelfNum;
+    $thisPage->location = "D111" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
 }
 
@@ -47,7 +47,7 @@ if(isset($_POST['SubmitMove'])){
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
-	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>D11</h2>
+	Inventory Application</h1><h2 style='color: blue; font-size: 17pt;'>D111</h2>
 <div class='centering'>
 <h3>Pick Parts</h3>
 <form method='post'>
@@ -95,7 +95,7 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D11Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D111Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
