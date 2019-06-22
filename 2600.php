@@ -1,7 +1,7 @@
 <?php
 include 'NewFile.php';
 
-class Building2550
+class Building2600
 {
 
     public $searchBarData;
