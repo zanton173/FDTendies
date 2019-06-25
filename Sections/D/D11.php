@@ -95,7 +95,7 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D111Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D111Shelf', '$j') GROUP BY partNumber ORDER BY partNumber DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
