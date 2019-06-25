@@ -62,9 +62,9 @@ if(isset($_POST['submitDropPickList'])){
 </div><br><br>
 <?php echo "<center>";
 
-echo "<form method='post'><input type='submit' name='submitDropPickList'></form>";
+echo "<form method='post'><input type='submit' name='submitDropPickList' value='Delete All Lists'></form>";
     
-echo "</center>";?>
+echo "</center><br><br>";?>
 
 <div class="centering">
 	<button style="height: 50px;"
@@ -72,3 +72,4 @@ echo "</center>";?>
 </div>
 </body>
 </html>
+        

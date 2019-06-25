@@ -1,5 +1,5 @@
 <?php
-include 'Queries.php';
+include '../../Queries.php';
 class B1
 {
     
@@ -116,7 +116,7 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('B1Shelf', '$j') GROUP BY partNumber ORDER BY qty DESC";
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('B1Shelf', '$j')  ORDER BY qty DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
