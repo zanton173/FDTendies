@@ -1,26 +1,41 @@
 <!-- // File for random home queries -->
 <?php
+session_start();
 
 class NewFile
 {
-   
+  
     
     public static function establishConnection()
     {
-
-         //$hostname = "192.168.1.179";
+      
+       
+         $hostname = "192.168.1.179";
          //$dbusername = "testHine";
          //$dbpass = "HineInventory";
-         //$dbname = "hine";
+         $dbname = "hine";
         $hostname = "localhost";
         // USE THESE DATABASE VARIABLES TO LOGIN
-        $dbusername = "root";
-        $dbpass = "";
+        //$dbusername = "root";
+        $dbusername = $_SESSION['Username'];
+        $dbpass = $_SESSION['Password'];
+        //$dbpass = "";
         $dbname = "hine";
-
         $connect = mysqli_connect($hostname, $dbusername, $dbpass, $dbname);
 
         return $connect;
+    }
+    public static function login($usr, $pass){
+        if ($usr == 'testHine' AND $pass == 'HineInventory'){
+            $_SESSION['Username'] = $usr;
+            $_SESSION['Password'] = $pass;
+            
+            echo "<center><a href='Home.php'>Homepage</a></center>";
+            
+        }else{
+            echo "<center style='color: red;'>Wrong username or password!</center>";
+            session_abort();
+        }
     }
 
     public static function dropTable()
