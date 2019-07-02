@@ -17,13 +17,12 @@ if (isset($_POST['LoginSubmit'])){
 <body class='bodyBackground'>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-
 </head>
 <h1 class="centering" style="font-size: 15pt;">Hine Inventory
 	Application</h1>
 <div class='centering'>
 
-	<form method='post'>
+	<form method='post' id='LoginForm'>
 		Username:
 		<input type='text' name='LoginUser'><br><br>
 		Password:

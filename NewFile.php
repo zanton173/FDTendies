@@ -10,30 +10,25 @@ class NewFile
     {
       
        
-         $hostname = "192.168.1.179";
-         //$dbusername = "testHine";
-         //$dbpass = "HineInventory";
-         $dbname = "hine";
-        $hostname = "localhost";
-        // USE THESE DATABASE VARIABLES TO LOGIN
-        //$dbusername = "root";
+        $hostname = "192.168.1.179";
+        //$hostname = "localhost";
+        
+        
         $dbusername = $_SESSION['Username'];
         $dbpass = $_SESSION['Password'];
-        //$dbpass = "";
         $dbname = "hine";
         $connect = mysqli_connect($hostname, $dbusername, $dbpass, $dbname);
 
         return $connect;
     }
     public static function login($usr, $pass){
-        if ($usr == 'testHine' AND $pass == 'HineInventory'){
+        if ($usr == 'root' AND $pass == ''){
             $_SESSION['Username'] = $usr;
             $_SESSION['Password'] = $pass;
-            
-            echo "<center><a href='Home.php'>Homepage</a></center>";
-            
+            header('Location: Home.php');         
         }else{
             echo "<center style='color: red;'>Wrong username or password!</center>";
+            
             session_abort();
         }
     }

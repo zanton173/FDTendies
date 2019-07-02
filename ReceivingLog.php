@@ -8,27 +8,9 @@ class ReceivingLog
 
     public $doneParts = false;
 }
-$thisPage = new ReceivingLog();
-/*
- * function addPartsToLog($ref){
- * echo "<td><form method='post'><input type='text' name='partNum' placeholder='Part Number'>" . "(" . "<input type='number' name='partQuantityReceived' placeholder='Quantity'>" . ")" . "<input type='submit' name='commitParts' value='Add'></form>";
- *
- * if(isset($_POST['commitParts'])){
- *
- * $partsAdded = $_POST['partNum'];
- * $quantityAdded = $_POST['partQuantityReceived'];
- * echo $partsAdded . $quantityAdded;
- *
- * $queryCommit = "UPDATE inspectionlogs SET partNumReceived='$partsAdded', partQuantityReceived='$quantityAdded' WHERE hineReference='$ref'";
- *
- * mysqli_query(NewFile::establishConnection(), $queryCommit);
- *
- * }
- * }
- */
+
 
 if (isset($_POST['submitLog'])) {
-    // $thisPage->submittedLog = true;
     header('Location: PartsForm.php');
     $refInput = $_POST['reference'];
     $deliveryNumInput = $_POST['deliveryNumber'];
@@ -79,34 +61,6 @@ if (isset($_POST['submitLog'])) {
 	<br> <br>
 </form>
 <?php
-// join test
-/*
- * SELECT dateReceived, hineReference, supplierDelivery, supplierName, auditor, partNumReceived, partQuantityReceived FROM
- * inspectionlogs
- * JOIN partsinlog
- * ON
- * inspectionlogs.id = partsinlog.partsId
- * GROUP BY hineReference
- * ORDER BY dateReceived;
- */
-
-// $query = "SELECT dateReceived, hineReference, supplierDelivery, supplierName, auditor, partNumReceived, partQuantityReceived FROM inspectionlogs JOIN ON inspectionlogs. partsinlog GROUP BY hineReference ORDER BY dateReceived";
-
-/*
- * $query = "SELECT dateReceived,
- * hineReference,
- * supplierDelivery,
- * supplierName,
- * auditor,
- * partNumReceived,
- * partQuantityReceived
- * FROM inspectionlogs
- * JOIN partsinlog
- * ON
- * inspectionlogs.id = partsinlog.partsId
- * GROUP BY hineReference
- * ORDER BY dateReceived";
- */
 
 $query = "SELECT partsId,
  dateReceived, 
@@ -140,7 +94,6 @@ if (mysqli_num_rows($result) > 0) {
         echo "<td>" . $row['dateReceived'] . "</td>" . "<td>" . $row['hineReference'] . "</td>" . "<td>" . $row['supplierDelivery'] . "</td>" . "<td>" . $row['supplierName'] . "</td>" . "<td>" . $row['auditor'] . "</td>";
         echo "<td>";
         
-        //echo "<a class='table' href='PartsLogged.php'>Click Here For Details</a>";
         echo "$row[partNumReceived]" . "(" . $row['partQuantityReceived'] . ")" . "<br>";
                
         echo "</td>";

@@ -12,13 +12,13 @@ if(isset($_POST['deleteLogs'])){
 <html>
 <body class="bodyBackground">
 
-<a style='color: gray; margin: 0px;' href='Login.php'>Login</a>
+<a style='color: gray; font-size: 20pt;' href='Login.php'>Login</a>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt;">Hine Inventory
 	Application</h1>
-	
+<p class='centering'>Logged in as: <?php echo $_SESSION['Username']?></p>	
 <div class="tabs">
 	<form action="2510.php">
 		<input class="input" type="submit" value="2510 Warehouse" id='2510' />

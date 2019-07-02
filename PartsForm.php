@@ -12,6 +12,7 @@ $partsFormObj = new PartsForm();
 if (isset($_POST['commitParts'])){
     
     $partNum = $_POST['partNum'];
+    $partNum = strtoupper($partNum);
     $quantityReceived = $_POST['qtyReceived'];
     $partsFormObj->hineRef = $_POST['hineRefDropDown'];
     
