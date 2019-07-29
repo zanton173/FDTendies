@@ -17,7 +17,7 @@ if(isset($_POST['deleteLogs'])){
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt;">Hine Inventory
-	Application</h1>
+	Application </h1>
 <p class='centering'>Logged in as: <?php echo $_SESSION['Username']?></p>	
 <div class="tabs">
 	<form action="2510.php">
