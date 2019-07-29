@@ -21,6 +21,9 @@ class NewFile
 
         return $connect;
     }
+    public static function establishConnectionList(){
+        return mysqli_connect('192.168.1.179', 'HineRoot', 'kj ocean caiman lush trim', 'hine');
+    }
     public static function login($usr, $pass){
         if ($usr == 'root' AND $pass == ''){
             $_SESSION['Username'] = $usr;
