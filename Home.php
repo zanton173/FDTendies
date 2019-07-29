@@ -17,32 +17,32 @@ if(isset($_POST['deleteLogs'])){
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <h1 class="centering" style="font-size: 15pt;">Hine Inventory
-	Application </h1>
+	Application</h1>
 <p class='centering'>Logged in as: <?php echo $_SESSION['Username']?></p>	
 <div class="tabs">
 	<form action="2510.php">
-		<input class="btn btn-outline-secondary" type="submit" value="2510 Warehouse" id='2510' />
+		<input class="btn btn-outline-success btn-lg btn-warning" type="submit" value="2510 Warehouse" id='2510' />
 	</form>
 
 	<form action="2550.php">
-		<input class="btn btn-outline-secondary" type="submit" value="2550 Warehouse" id='2550' />
+		<input class="btn btn-outline-success btn-lg btn-lg" type="submit" value="2550 Warehouse" id='2550' />
 	</form><br><br>
 	<form action="ReceivingLog.php">
-		<input class="btn btn-outline-secondary" type="submit" name='' value='Incoming Inspection Log' />
+		<input class="btn btn-outline-success btn-lg" type="submit" name='' value='Incoming Inspection Log' />
 	</form>
 	<form action="2600.php">
-		<input class="btn btn-outline-secondary" type="submit" value='2600 Warehouse' />
+		<input class="btn btn-outline-success btn-lg" type="submit" value='2600 Warehouse' />
 	</form><br><br>
 	<div class='centering'><form action="PickLists.php">
-		<input class="btn btn-outline-secondary" type="submit" value="Pick Lists">
+		<input class="btn btn-outline-success btn-lg" type="submit" value="Pick Lists">
 	</form><br><br></div>
 	<form action="Home.php" method="post">
-		<input class="btn btn-outline-secondary" type="submit" name="truncate"
+		<input class="btn btn-outline-success btn-lg" type="submit" name="truncate"
 			value="Remove all dead parts" />
 			
 	</form>
 	<form action="Home.php" method="post">
-		<input class="btn btn-outline-secondary" type="submit" name="deleteLogs"
+		<input class="btn btn-outline-success btn-lg" type="submit" name="deleteLogs"
 			value="Remove Bad Logs" />
 			
 	</form>
