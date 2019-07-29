@@ -21,28 +21,28 @@ if(isset($_POST['deleteLogs'])){
 <p class='centering'>Logged in as: <?php echo $_SESSION['Username']?></p>	
 <div class="tabs">
 	<form action="2510.php">
-		<input class="input" type="submit" value="2510 Warehouse" id='2510' />
+		<input class="btn btn-outline-secondary" type="submit" value="2510 Warehouse" id='2510' />
 	</form>
 
 	<form action="2550.php">
-		<input class="input" type="submit" value="2550 Warehouse" id='2550' />
+		<input class="btn btn-outline-secondary" type="submit" value="2550 Warehouse" id='2550' />
 	</form><br><br>
 	<form action="ReceivingLog.php">
-		<input class="input" type="submit" name='' value='Incoming Inspection Log' />
+		<input class="btn btn-outline-secondary" type="submit" name='' value='Incoming Inspection Log' />
 	</form>
 	<form action="2600.php">
-		<input class="input" type="submit" value='2600 Warehouse' />
+		<input class="btn btn-outline-secondary" type="submit" value='2600 Warehouse' />
 	</form><br><br>
 	<div class='centering'><form action="PickLists.php">
-		<input class="input" type="submit" value="Pick Lists">
+		<input class="btn btn-outline-secondary" type="submit" value="Pick Lists">
 	</form><br><br></div>
 	<form action="Home.php" method="post">
-		<input class="input" type="submit" name="truncate"
+		<input class="btn btn-outline-secondary" type="submit" name="truncate"
 			value="Remove all dead parts" />
 			
 	</form>
 	<form action="Home.php" method="post">
-		<input class="input" type="submit" name="deleteLogs"
+		<input class="btn btn-outline-secondary" type="submit" name="deleteLogs"
 			value="Remove Bad Logs" />
 			
 	</form>
