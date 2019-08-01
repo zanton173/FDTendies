@@ -20,14 +20,16 @@ if (isset($_POST['LoginSubmit'])){
 </head>
 <h1 class="centering" style="font-size: 15pt;">Hine Inventory
 	Application</h1>
-<div class='centering'>
+<div class="row">
 
-	<form method='post' id='LoginForm'>
-		Username:
-		<input type='text' name='LoginUser'><br><br>
-		Password:
-		<input type="password" name='LoginPass'><br><br>
-		<input type='submit' name='LoginSubmit'>
+	<form class="d-block justify-content-center" method='post' id='LoginForm'>
+	<div class="form-group">
+		<input class="form-control col-lg-12" type='text' name='LoginUser' placeholder="Username">
+		</div>
+		<div class="form-group">
+		<input class="form-control col-lg-12" type="password" name='LoginPass' placeholder="Password">
+		</div>
+		<input class="btn btn-primary" value="Login" type='submit' name='LoginSubmit'>
 	</form>
 
 </div>

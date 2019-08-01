@@ -18,11 +18,13 @@ class Building2550
 <h1 class="centering" style="font-size: 15pt; height: 25px;">Hine
 	Inventory Application</h1>
 <h2 style="font-size: 10pt">Warehouse 2550</h2>
-<form method='post'>
-	<input name='searchbar' style='margin-left: 60%;' type='text'
-		placeholder="Search For Part"> <input type='submit' name='search' /> <br>
+<div class="row">
+<form class="form-inline nowrap justify-content-end" method='post'>
+	<input class="form-control col-lg-8" name='searchbar' type='text'
+		placeholder="Part Number"> &nbsp; <input class="form-control col-lg-3 btn btn-primary" value="Search" type='submit' name='search' />
 
 </form>
+</div>
 
 <div style='text-align: center;'><?php
 $thisPage = new Building2550();

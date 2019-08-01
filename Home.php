@@ -11,45 +11,48 @@ if(isset($_POST['deleteLogs'])){
 ?>
 <html>
 <body class="bodyBackground">
-
-<a style='color: gray; font-size: 20pt;' href='Login.php'>Login</a>
+<div class="container-fluid">
+<a class="btn btn-secondary mx-3 my-3 col-lg-1" href='Login.php'>Login</a>
+</div>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
-<h1 class="centering" style="font-size: 15pt;">Hine Inventory
+<h1 class="centering" style="font-size: 25pt;">Hine Inventory
 	Application</h1>
 <p class='centering'>Logged in as: <?php echo $_SESSION['Username']?></p>	
+<div class="container">
 <div class="tabs">
 	<form action="2510.php">
-		<input class="btn btn-outline-success btn-lg btn-warning" type="submit" value="2510 Warehouse" id='2510' />
+		<input class="btn btn-success btn-lg" type="submit" value="2510 Warehouse" id='2510' />
 	</form>
 
 	<form action="2550.php">
-		<input class="btn btn-outline-success btn-lg btn-lg" type="submit" value="2550 Warehouse" id='2550' />
+		<input class="btn btn-success btn-lg btn-lg" type="submit" value="2550 Warehouse" id='2550' />
 	</form><br><br>
 	<form action="ReceivingLog.php">
-		<input class="btn btn-outline-success btn-lg" type="submit" name='' value='Incoming Inspection Log' />
+		<input class="btn btn-success btn-lg" type="submit" name='' value='Incoming Inspection Log' />
 	</form>
 	<form action="2600.php">
-		<input class="btn btn-outline-success btn-lg" type="submit" value='2600 Warehouse' />
+		<input class="btn btn-success btn-lg" type="submit" value='2600 Warehouse' />
 	</form><br><br>
 	<div class='centering'><form action="PickLists.php">
-		<input class="btn btn-outline-success btn-lg" type="submit" value="Pick Lists">
+		<input class="btn btn-success btn-lg" type="submit" value="Pick Lists">
 	</form><br><br></div>
 	<form action="Home.php" method="post">
-		<input class="btn btn-outline-success btn-lg" type="submit" name="truncate"
+		<input class="btn btn-success btn-lg" type="submit" name="truncate"
 			value="Remove all dead parts" />
 			
 	</form>
 	<form action="Home.php" method="post">
-		<input class="btn btn-outline-success btn-lg" type="submit" name="deleteLogs"
+		<input class="btn btn-success btn-lg" type="submit" name="deleteLogs"
 			value="Remove Bad Logs" />
 			
 	</form>
+	</div>
 </div>
 <div style="height: 300px;"></div>
 <div class="centering">
-	<button style="height: 50px;"
+	<button class="btn btn-danger" style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>
 </div>
 </body>

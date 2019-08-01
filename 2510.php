@@ -22,11 +22,13 @@ if (isset($_POST['submitTempDel'])) {
 <h1 class="centering" style="font-size: 15pt; height: 25px;">Hine
 	Inventory Application</h1>
 <h2 style="font-size: 10pt">Warehouse 2510</h2>
-<form method='post'>
-	<input name='searchbar' style='margin-left: 60%;' type='text'
-		placeholder="Search For Part"> <input type='submit' name='search' /> <br>
+<div class="row">
+<form class="form-inline nowrap justify-content-end" method='post'>
+	<input class="form-control col-lg-8" name='searchbar' type='text'
+		placeholder="Part Number"> &nbsp; <input class="form-control col-lg-3 btn btn-primary" value="Search" type='submit' name='search' />
 
 </form>
+</div>
 <div style='text-align: center;'>
 	<?php
 $thisPage = new Building2510();
@@ -63,7 +65,7 @@ if (isset($_POST['searchbar'])) {
 		</tr>
 		<tr>
 			<td><button onclick='window.location.href = "Sections/E/E1.php"'
-					class='buttonClass'>Section 1</button></td>
+					class="buttonClass">Section 1</button></td>
 			<td><button onclick='window.location.href = "Sections/E/E2.php"'
 					class='buttonClass'>Section 2</button></td>
 			<td><button onclick='window.location.href = "Sections/E/E3.php"'
@@ -120,7 +122,7 @@ if (isset($_POST['searchbar'])) {
 		<tr>
 			<td style='border: 0;' colspan='3'></td>
 			<td><button onclick='window.location.href = "Sections/I/I1.php"'
-					class='buttonClass'>Section 3</button></td>
+					class='buttonClass'>Section 1</button></td>
 
 		</tr>
 		<tr>
@@ -132,7 +134,7 @@ if (isset($_POST['searchbar'])) {
 		<tr>
 			<td style='border: 0;' colspan='3'></td>
 			<td><button onclick='window.location.href = "Sections/I/I3.php"'
-					class='buttonClass'>Section 1</button></td>
+					class='buttonClass'>Section 3</button></td>
 
 		</tr>
 	</table>

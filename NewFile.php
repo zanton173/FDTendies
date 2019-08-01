@@ -10,8 +10,8 @@ class NewFile
     {
       
        
-        //$hostname = "192.168.1.179";
-        $hostname = "localhost";
+        $hostname = "192.168.1.179";
+        //$hostname = "localhost";
         
         
         $dbusername = $_SESSION['Username'];
