@@ -8,11 +8,8 @@ class NewFile
     
     public static function establishConnection()
     {
-      
-       
         $hostname = "192.168.1.179";
         //$hostname = "localhost";
-        
         
         $dbusername = $_SESSION['Username'];
         $dbpass = $_SESSION['Password'];
@@ -25,7 +22,9 @@ class NewFile
         return mysqli_connect('192.168.1.179', 'HineRoot', 'kj ocean caiman lush trim', 'hine');
     }
     public static function login($usr, $pass){
-        if ($usr == 'root' AND $pass == ''){
+        // CHANGE THIS LINE IF COMMITTING!!!!
+        if ($usr == 'HineRoot' AND $pass == 'kj ocean caiman lush trim'){
+        // ************************************* //
             $_SESSION['Username'] = $usr;
             $_SESSION['Password'] = $pass;
             header('Location: Home.php');         

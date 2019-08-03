@@ -191,13 +191,22 @@ if (mysqli_num_rows($result)) {
     echo "<br>";
     
 }
-echo "<div class='centering'><form method='post'>Delete Temp Parts: <input type='text' name='tempPartNum'><input type='submit' name='submitTempDel'></form></div>";
+echo "<div class='centering'>";
+echo "<form class='form-inline nowrap justify-content-center' method='post'>";
+echo "Delete Temp Parts: &nbsp; <input class='form-control' type='text' name='tempPartNum'>&nbsp;";
+echo "<input class='btn btn-primary' value='Submit' type='submit' name='submitTempDel'>";
+echo "</form>";
+echo "</div>";
 echo "<br>";
+
 ?> 
 </div>
 <div class="centering">
-	<button style="height: 50px;"
+	<button class="btn btn-danger" style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>
 </div>
 </body>
 </html>
+
+
+	

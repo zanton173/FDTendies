@@ -165,7 +165,7 @@ echo "</center>";
 	<button class="btn btn-danger" style="height: 50px;"
 		onclick="window.location.href = '../../Home.php';">Home Screen</button>
 	<button class="btn btn-primary" style="height: 50px;"
-		onclick="window.location.href = '../../2510.php';">2550 Layout</button>
+		onclick="window.location.href = '../../2510.php';">2510 Layout</button>
 
 </div>
 

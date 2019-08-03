@@ -50,7 +50,7 @@ if(isset($_POST['deleteLogs'])){
 	</form>
 	</div>
 </div>
-<div style="height: 300px;"></div>
+<br><br>
 <div class="centering">
 	<button class="btn btn-danger" style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>

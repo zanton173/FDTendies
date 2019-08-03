@@ -31,15 +31,16 @@ if(isset($_POST['transferSubmit'])){
 <h2 style="font-size: 10pt">Warehouse 2600</h2><br><br>
 <div class='centering'>
 <h4>Putaway at 2600</h4>
-	<form method='post'>
+	<form class="form-inline nowarp justify-content-center" method='post'>
 
-		<input type='text' name='PartNumber2600'
-			placeholder='Part Number or Description'> <input type='number'
-			name='qty2600' placeholder='Quantity'> <input type='submit'
+		<input class="form-control" type='text' name='PartNumber2600'
+			placeholder='Part Number or Description'>&nbsp; <input class="form-control" type='number'
+			name='qty2600' placeholder='Quantity'> &nbsp;<input class="btn btn-success" value="Submit" type='submit'
 			name='2600Submit'>
-		<br><br>
+		<br><br></form>
 		<h4>Move to Other Location</h4>
-		<select name='Warehouses'>
+		<form class="form-inline nowrap justify-content-center" method="post">
+		<select class="form-control" name='Warehouses'>
 			
 			<option value='2550'>2550</option>
 			<option value='2510'>2510</option>
@@ -47,9 +48,9 @@ if(isset($_POST['transferSubmit'])){
 		
 		</select>
 		&nbsp;
-		<input type='text' name='Part' placeholder='Part Number'>
+		<input class="form-control" type='text' name='Part' placeholder='Part Number'>
 		&nbsp;
-		<input type='submit' name='transferSubmit'>
+		<input class="btn btn-success" value="Submit" type='submit' name='transferSubmit'>
 	</form><br><br><br>
 </div>
 <?php
@@ -81,9 +82,9 @@ if (mysqli_num_rows($result) > 0) {
 echo "</center>";
 ?> 
 
-<div style='height: 150px;'></div>
+<br><br>
 <div class="centering">
-	<button style="height: 50px;"
+	<button class="btn btn-danger" style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>
 </div>
 </body>

@@ -45,17 +45,17 @@ if (isset($_POST['submitLog'])) {
 		</tr>
 		<tr>
 
-			<td><input type='text' name='reference' /></td>
-			<td><input type='text' name='deliveryNumber' /></td>
-			<td><input type='text' name='supplier' /></td>
-			<td><input type='text' name='auditor' /></td>
+			<td><input class="form-control" type='text' name='reference' /></td>
+			<td><input class="form-control" type='text' name='deliveryNumber' /></td>
+			<td><input class="form-control" type='text' name='supplier' /></td>
+			<td><input class="form-control" type='text' name='auditor' /></td>
 
 		</tr>
 	</table>
 	<br>
 
 	<div style="margin: center;">
-		<input type='submit' name='submitLog' /> <a href="PartsForm.php">Edit
+		<input class="btn btn-success" type='submit' name='submitLog' /> <a href="PartsForm.php">Edit
 			Logs</a>
 	</div>
 	<br> <br>
@@ -108,7 +108,7 @@ if (mysqli_num_rows($result) > 0) {
 
 <div style='height: 75px;'></div>
 <div class="centering">
-	<button style="height: 50px;"
+	<button class="btn btn-danger" style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>
 
 </div>

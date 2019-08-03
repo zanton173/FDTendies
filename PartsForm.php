@@ -38,14 +38,15 @@ if (isset($_POST['commitParts'])){
 
     $query = "SELECT id, hineReference FROM inspectionlogs";
     $result = mysqli_query(NewFile::establishConnection(), $query);
-    echo "<form method='post'>";
-    echo "<select name='hineRefDropDown'>";
+    echo "<form class='form-inline nowrap justify-content-center' method='post'>";
+    echo "<select class='form-control' name='hineRefDropDown'>";
     if (mysqli_num_rows($result)){
         
         while($row = mysqli_fetch_array($result)){
             
             echo "&nbsp;";
             echo "<option value=$row[id]>"  . $row['hineReference'] . "</option>";
+            
         }
        echo "</form>"; 
     }
@@ -56,20 +57,20 @@ if (isset($_POST['commitParts'])){
 &nbsp;
 
 
-<form method='post'>
+<form class="form-inline nowrap justify-content-center" method='post'>
 
-  <input type='text' name='partNum' placeholder='Part Number'>
-  <input type='number' name='qtyReceived' placeholder='Quantity'>
-  <input type='submit' name='commitParts' value='Add'>
+  <input class="form-control" type='text' name='partNum' placeholder='Part Number'>&nbsp;
+  <input class="form-control" type='number' name='qtyReceived' placeholder='Quantity'>&nbsp;
+  <input class="btn btn-success" type='submit' name='commitParts' value='Add'>
 
 
 </form>
 </div>
 <div style='height: 50px;'></div>
 <div class="centering">
-	<button style="height: 50px;"
+	<button class="btn btn-danger" style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>
-		<button style='height: 50px;' onclick='window.location.href = "ReceivingLog.php";'>Logs
+		<button class="btn btn-primary" style='height: 50px;' onclick='window.location.href = "ReceivingLog.php";'>Logs
 			
 		</button>
 

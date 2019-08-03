@@ -62,12 +62,14 @@ if(isset($_POST['submitDropPickList'])){
 </div><br><br>
 <?php echo "<center>";
 
-echo "<form method='post'><input type='submit' name='submitDropPickList' value='Delete All Lists'></form>";
+echo "<form method='post'>";
+echo "<input class='btn btn-danger' type='submit' name='submitDropPickList' value='Delete All Lists'>";
+echo "</form>";
     
 echo "</center><br><br>";?>
 
 <div class="centering">
-	<button style="height: 50px;"
+	<button class="btn btn-success" style="height: 50px;"
 		onclick="window.location.href = 'Home.php';">Home Screen</button>
 </div>
 </body>
