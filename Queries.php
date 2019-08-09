@@ -32,6 +32,10 @@ class Queries
         $query = "INSERT INTO parts(partNumber, location, qty) VALUES ('$partNumber', '$loc', '$qty') ";
         return mysqli_query(NewFile::establishConnection(), $query);
     }
-    
+    function partNumberWorkOn($partNum, $problem){
+        $partNumber = strtoupper($partNum);
+        $query = "UPDATE parts SET todowork=true, problemDesc='$problem' WHERE partNumber='$partNumber'";
+        return mysqli_query(NewFile::establishConnection(), $query);
+    }
 }
 ?>

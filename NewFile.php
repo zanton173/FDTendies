@@ -23,7 +23,8 @@ class NewFile
     }
     public static function login($usr, $pass){
         // CHANGE THIS LINE IF COMMITTING!!!!
-        if ($usr == 'HineRoot' AND $pass == 'kj ocean caiman lush trim'){
+        //if ($usr == 'root' AND $pass == ''){
+         if ($usr == 'HineRoot' AND $pass == 'kj ocean caiman lush trim'){
         // ************************************* //
             $_SESSION['Username'] = $usr;
             $_SESSION['Password'] = $pass;
