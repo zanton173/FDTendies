@@ -49,7 +49,7 @@ if(isset($_POST['deleteLogs'])){
 			
 	</form><br><br>
 	<form action="ToDoWork.php" method="post">
-		<input class="btn btn-success btn-lg" type="submit" value="To Work On...">
+		<input class="btn btn-success btn-lg" type="submit" value="TO DO">
 	</form>
 	</div>
 </div>
