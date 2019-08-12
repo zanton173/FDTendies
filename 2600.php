@@ -56,7 +56,7 @@ if(isset($_POST['transferSubmit'])){
 <?php
 echo "<center>";
 
-$query = "SELECT partNumber, SUM(qty) AS qty FROM parts WHERE location=2600 ORDER BY qty DESC";
+$query = "SELECT partNumber, SUM(qty) AS qty FROM parts WHERE location like '2600' GROUP BY partNumber";
 $result = mysqli_query(NewFile::establishConnection(), $query);
 
 if (mysqli_num_rows($result) > 0) {
@@ -71,7 +71,7 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
 
         echo "<tr>";
-        echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
+        echo "<td>" . $row['partNumber'] . "</td><td>" . $row['qty'] . "</td>";
         echo "</tr>";
     }
 
