@@ -1,19 +1,19 @@
 <?php
 include '../../Queries.php';
 
-class B7
+class B8
 {
 }
 
 $DoThings = new Queries();
-$thisPage = new B7();
+$thisPage = new B8();
 
 if (isset($_POST['submitPut'])) {
     $partNum = $_POST['partNum'];
     $partNum = preg_replace('(\s)', '', $partNum);
     $qty = $_POST['quantity'];
     $shelfNum = $_POST['shelfNum'];
-    $thisPage->location = "B7" . $shelfNum;
+    $thisPage->location = "B8" . $shelfNum;
     $DoThings->putawayPart($partNum, $thisPage->location, $qty);
 }
 
@@ -56,7 +56,7 @@ if (isset($_POST['SubmitWork'])) {
 </head>
 <h1 class="centering" style="font-size: 15pt; height: 25px">Hine
 	Inventory Application</h1>
-<h2 style='color: blue; font-size: 17pt;'>B7</h2>
+<h2 style='color: blue; font-size: 17pt;'>B8</h2>
 <div class='centering'>
 	<h4>Pick Parts</h4>
 	<div class="row">
@@ -153,7 +153,7 @@ echo "<center>";
 
 function printTable($shelf, $j)
 {
-    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('B7Shelf', '$j') GROUP BY partNumber ORDER BY partNumber DESC";
+    $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('B8Shelf', '$j') GROUP BY partNumber ORDER BY partNumber DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
