@@ -3,6 +3,14 @@ include '../../Queries.php';
 
 class D1
 {
+
+    public $action = [
+        'pick',
+        'move',
+        'delete',
+        'change',
+        'work'
+    ];
 }
 
 $DoThings = new Queries();
@@ -32,7 +40,7 @@ if (isset($_POST['SubmitMove'])) {
 if (isset($_POST['SubmitDelete'])) {
     $partDel = $_POST['PartNumDelete'];
     $locDel = $_POST['LocationDelete'];
-    
+
     $DoThings->delParts($partDel, $locDel);
 }
 if (isset($_POST['SubmitChange'])) {
@@ -46,6 +54,12 @@ if (isset($_POST['SubmitWork'])) {
     $problem = $_POST['problem'];
     $DoThings->partNumberWorkOn($partNumToWork, $problem);
 }
+
+if (isset($_POST['selectedAction'])) {
+    $action = $_POST['selectAction'];
+    echo $action;
+}
+
 ?>
 <html>
 <body class="bodyBackground">
@@ -129,66 +143,103 @@ if (isset($_POST['SubmitWork'])) {
 		</form>
 
 
-</div>
-<div style="height: 15px; text-align: center;">
-	<h4>Submit for Work</h4>
-	<div class="row">
-		<form class="form-inline nowrap justify-content-center" method="post">
+	</div>
+	<div style="height: 15px; text-align: center;">
+		
+		<h4>Submit for Work</h4>
+		<div class="row">
+			<form class="form-inline nowrap justify-content-center" method="post">
 
-			<input class="form-control" type='text' name='PartNumToWork' placeholder='Part Number'>&nbsp;
-			<input class="form-control" type="text" name="problem" placeholder="Issue With Part">&nbsp;
-			<input class="btn btn-primary" value="Submit" type='submit' name='SubmitWork' placeholder='submit'>
-		</form>
+				<input class="form-control" type='text' name='PartNumToWork'
+					placeholder='Part Number'>&nbsp; <input class="form-control"
+					type="text" name="problem" placeholder="Issue With Part">&nbsp; <input
+					class="btn btn-primary" value="Submit" type='submit'
+					name='SubmitWork' placeholder='submit'>
+			</form>
 
+		</div>
 	</div>
 </div>
-</div>
 <div style="height: 75px;"></div>
+<h4>Select Action</h4>
+<form method="post" action="D1.php">
 
-<div>
-	<h4>Items on Shelves</h4>
+			<table class="tableForShelves">
+				<tr>
+					<th>Action</th>
+					<th>Submit</th>
+				</tr>
+
+				<tr>
+					<td><select name="selectAction">
+							<option value="pick">Pick</option>
+							<option value="move">Move</option>
+							<option value="delete">Delete</option>
+							<option value="change">Change</option>
+							<option value="work">Work</option>
+
+					</select></td>
+					<td><input class="btn btn-primary" type="submit"
+						name="selectedAction" value="submit"></td>
+				</tr>
+			</table>
+
+		</form>
+<h4>Items on Shelves</h4>
 	
 	<?php
-echo "<center>";
 
 function printTable($shelf, $j)
 {
+    $sectionObj = new D1();
     $query = "SELECT id, partNumber, SUM(qty) AS qty FROM parts WHERE location=CONCAT('D1Shelf', '$j') GROUP BY partNumber ORDER BY partNumber DESC";
     $result = mysqli_query(NewFile::establishConnection(), $query);
     if ($shelf == "Shelf" . $j) {
 
         if (mysqli_num_rows($result) > 0) {
+            // echo "<form method='post' action='D1.php'>";
             echo "<table class='tableForShelves'>";
             echo "<tbody>";
             echo "<tr>";
             echo "<th>Part Number</th>";
             echo "<th>Quantity</th>";
+            echo "<th>Select</th>";
 
             echo "</tr>";
 
             while ($row = mysqli_fetch_array($result)) {
 
                 echo "<tr>";
-                echo "<td id=$row[partNumber]>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
-                echo "<td><input type='checkbox'></td>";
+                echo "<td>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
+                
+                /*
+                 * echo "<td><select name='selectAction'>";
+                 * foreach ($sectionObj->action as $action){
+                 * echo "<option value=$action>" . $action . "</option>";
+                 * }
+                 * echo "</select></td>";
+                 * echo "<td><input class='btn btn-primary' type='submit' name='selectedAction' value='submit'></td>";
+                 */
+
                 echo "</tr>";
             }
-
+            // echo "</form>";
             echo "</tbody>";
             echo "</table>";
         }
     }
 }
+?>
+
+<?php
 for ($i = 4; $i > 0; $i --) {
     $shelfNumberPrint = "Shelf" . $i;
     echo "<h5 style='text-decoration: underline; font-weight: bold;'>$shelfNumberPrint</h5>";
 
     printTable($shelfNumberPrint, $i);
 }
-echo "</center>";
-?> 
 
-</div>
+?> 
 
 <div class="centering">
 	<button class="btn btn-danger" style="height: 50px;"

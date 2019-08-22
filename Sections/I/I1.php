@@ -170,7 +170,7 @@ function printTable($shelf, $j)
 
                 echo "<tr>";
                 echo "<td id=$row[partNumber]>" . $row['partNumber'] . "</td>" . "<td>" . $row['qty'] . "</td>";
-                echo "<td><input type='checkbox'></td>";
+                
                 echo "</tr>";
             }
 
