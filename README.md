@@ -1,9 +1,9 @@
 # Inventory Control App
-Hine Inventory Control
+Inventory Control
 
-This app was designed with the intent of controlling an uncontrolled warehouse inventory.
+This app was designed with the intent of controlling an improperly managed warehouse inventory.
 
-The user login for guests is as follows:
+The read-only user login for guests is the following:
 
 Username: 'Guest'
 Password: 'ReadOnly123'
