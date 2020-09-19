@@ -15,8 +15,8 @@
 
         This application was created for the purpose of tracking inventory in an environment that was using paper & pencil methods <br /><br /><br /><br /><br />
         To utilize this application to its fullest capacity (Read + Write) login with 'root' as the username leave the password field blank <br/><br /><br /><br />
-
-
+	Using this application requires using case sensitive locations to transact parts. (i.e. 'D1Shelf4', 'B1Shelf2')<br />
+<br/><br/><br/>
 </div>
 
 <div class="centering">
