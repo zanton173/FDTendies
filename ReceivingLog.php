@@ -73,7 +73,7 @@ partQuantityReceived
 FROM inspectionlogs 
 JOIN partsinlog 
 ON inspectionlogs.id = partsinlog.partsId 
-ORDER BY partsId, dateReceived";
+ORDER BY dateReceived DESC";
 $result = mysqli_query(NewFile::establishConnection(), $query);
 if (mysqli_num_rows($result) > 0) {
 
