@@ -4,8 +4,6 @@ session_start();
 
 class NewFile
 {
-  
-    
     public static function establishConnection()
     {
         //$hostname = "192.168.1.179";
@@ -19,7 +17,7 @@ class NewFile
         return $connect;
     }
     public static function establishConnectionList(){
-        return mysqli_connect('192.168.1.179', 'HineRoot', 'kj ocean caiman lush trim', 'hine');
+        return mysqli_connect('localhost', 'root', '', 'hine');
     }
     public static function login($usr, $pass){
         // CHANGE THIS LINE IF COMMITTING!!!!

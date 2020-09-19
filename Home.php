@@ -12,6 +12,7 @@ if(isset($_POST['deleteLogs'])){
 <html>
 <body class="bodyBackground">
 <div class="container-fluid">
+<a class="btn btn-primary mx-3 my-3 col-lg-1" href='Readme.php'>READ ME!</a>
 <a class="btn btn-secondary mx-3 my-3 col-lg-1" href='Login.php'>Login</a>
 </div>
 <head>
