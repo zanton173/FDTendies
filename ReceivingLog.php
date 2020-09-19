@@ -31,7 +31,7 @@ if (isset($_POST['submitLog'])) {
 </head>
 
 
-<h1 class='centering' style='font-size: 15pt;'>Hine Inventory
+<h1 class='centering' style='font-size: 15pt;'>Inventory
 	Application</h1>
 <h2>Incoming Inspection Log Sheet</h2>
 <form method="post">
