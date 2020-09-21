@@ -203,7 +203,7 @@ function printTable($shelf, $j)
             echo "<tr>";
             echo "<th>Part Number</th>";
             echo "<th>Quantity</th>";
-            echo "<th>Select</th>";
+            
 
             echo "</tr>";
 
